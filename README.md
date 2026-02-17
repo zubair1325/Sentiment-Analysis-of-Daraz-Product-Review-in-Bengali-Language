@@ -186,6 +186,45 @@ Training and model details are available in:
 - [pythonCodeFolder/NLP_project.ipynb](pythonCodeFolder/Google%20Colab%20Code/NLP_project.ipynb) - Jupyter notebook with full analysis
 - [pythonCodeFolder/ml_models.py](pythonCodeFolder/ml_models.py) - Model implementation
 
+## 🎯 Algorithms & Performance Metrics
+
+The project implements and compares multiple machine learning algorithms for sentiment classification:
+
+### Classical Machine Learning Models (TF-IDF Vectorization)
+
+| Algorithm                     | Type           | Metrics                                                              | Notes                                                                    |
+| ----------------------------- | -------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **Logistic Regression**       | Linear Model   | Precision, Recall, F1-Score (Macro)                                  | Fast and interpretable; computes feature importance through coefficients |
+| **Naive Bayes**               | Probabilistic  | Precision: 0.85, Recall: 0.83, F1-Score: 0.84, Test Accuracy: 73.24% | Effective baseline; includes feature log probabilities analysis          |
+| **Random Forest**             | Ensemble       | Precision, Recall, F1-Score (Macro)                                  | Provides feature importances; robust to overfitting                      |
+| **K-Nearest Neighbors (KNN)** | Distance-Based | Precision, Recall, F1-Score (Macro)                                  | Uses k=3 neighbors; versatile for multi-class classification             |
+
+### Deep Learning Models (Tokenization & Padding)
+
+| Algorithm                              | Type          | Architecture                                                                         | Metrics                             | Notes                                                     |
+| -------------------------------------- | ------------- | ------------------------------------------------------------------------------------ | ----------------------------------- | --------------------------------------------------------- |
+| **CNN (Convolutional Neural Network)** | Deep Learning | Embedding (64D) → Conv1D (128 filters, kernel=5) → GlobalMaxPooling1D → Dense layers | Precision, Recall, F1-Score (Macro) | Captures local patterns in text; batch_size=32, epochs=25 |
+| **LSTM**                               | RNN           | Embedding (64D) → LSTM (64 units) → Dense                                            | Currently Inactive                  | Can be enabled for sequential pattern learning            |
+
+### Evaluation Metrics
+
+All models are evaluated using:
+
+- **Precision (Macro)**: Average precision across all sentiment classes
+- **Recall (Macro)**: Average recall across all sentiment classes
+- **F1-Score (Macro)**: Harmonic mean of precision and recall
+- **Test/Validation Accuracy**: Overall accuracy on the test set
+
+The macro-averaged metrics ensure balanced evaluation across all three sentiment classes (Positive, Negative, Neutral).
+
+### Feature Analysis
+
+- **Chi-Square Analysis**: Applied to top discriminative features for Logistic Regression
+- **Feature Importance**: Extracted from:
+  - Tree-based models (Random Forest): Feature importances
+  - Linear models (Logistic Regression): Coefficient magnitudes
+  - Probabilistic models (Naive Bayes): Feature log probabilities
+
 ## 📝 Usage
 
 1. **Navigate to the web application** - Open `http://localhost:3000`
