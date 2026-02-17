@@ -1,0 +1,4 @@
+pandas
+openpyxl         # Required to read/write Excel files (.xlsx)
+scikit-learn     # For TF-IDF Vectorization
+tensorflow       # For Tokenization and Padding (Keras is part of TensorFlow)

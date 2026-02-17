@@ -1,0 +1,32 @@
+<%- layout("layouts/boilerplate.ejs") %>
+<div class="card shadow mt-5">
+  <div
+    class="card-header bg-info text-white"
+    style="background-color: #ff385de0 !important"
+  >
+    <h4 class="mb-0">Your Feedback is Most Valuable to Us</h4>
+  </div>
+  <div class="card-body">
+    <form action="/feedback" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="message" class="form-label">Feedback</label>
+        <textarea
+          class="form-control"
+          id="message"
+          name="message"
+          rows="4"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Feedback can be empty</div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-danger feed-back-btn"
+        style="background-color: #ff385dd8; border: none"
+      >
+        Submit Feedback
+      </button>
+    </form>
+  </div>
+</div>

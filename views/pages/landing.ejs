@@ -1,0 +1,116 @@
+<%- layout("layouts/boilerplate.ejs") %>
+<body>
+  <div class="container mt-5">
+    <div class="card shadow">
+      <div
+        class="landing-image d-flex justify-content-center align-items-center py-3"
+      >
+        <img src="../dependencys/images/f.png" alt="MoodSan" />
+      </div>
+      <div class="card-body">
+        <form
+          class="needs-validation"
+          action="/home"
+          method="POST"
+          enctype="multipart/form-data"
+          novalidate
+        >
+          <div class="mb-3">
+            <label for="file" class="form-label"
+              ><b>Choose a XLSX or CSV file</b></label
+            >
+            <input
+              type="file"
+              class="form-control"
+              id="file"
+              name="datafile"
+              accept=".csv, .xlsx"
+              required
+            />
+            <div class="invalid-feedback">
+              Please select a .csv or .xlsx file.
+            </div>
+          </div>
+
+          <!-- Algorithm Selection Buttons -->
+          <div class="mb-3">
+            <label class="form-label"><b>Select Algorithms</b></label>
+            <div class="d-flex flex-wrap gap-2" id="algo-buttons">
+              <button type="button" class="btn algo-btn" data-id="1">
+                Logistic Function
+              </button>
+              <button type="button" class="btn algo-btn" data-id="2">
+                Naive Bayes
+              </button>
+              <button type="button" class="btn algo-btn" data-id="3">
+                Random Forest
+              </button>
+              <button type="button" class="btn algo-btn" data-id="4">
+                K-Nearest Neighbor
+              </button>
+              <!-- <button type="button" class="btn algo-btn" data-id="5">
+                LSTM
+              </button> -->
+              <button type="button" class="btn algo-btn" data-id="6">
+                CNN
+              </button>
+            </div>
+          </div>
+
+          <!-- Hidden input to hold selected algorithm IDs -->
+          <input type="hidden" name="algorithms" id="selected-algos" />
+
+          <div class="d-grid">
+            <button
+              class="btn btn-primary landing-btn"
+              type="submit"
+              style="background-color: #ff385dd8; border: none"
+            >
+              Upload
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script to handle selection logic -->
+  <script>
+    const buttons = document.querySelectorAll(".algo-btn");
+    const selectedInput = document.getElementById("selected-algos");
+    const selected = new Set();
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-id");
+        if (selected.has(id)) {
+          selected.delete(id);
+          btn.classList.remove("landing-algo-selection");
+        } else {
+          selected.add(id);
+          btn.classList.add("landing-algo-selection");
+        }
+
+        selectedInput.value = Array.from(selected).join(",");
+      });
+    });
+
+    // const form = document.querySelector("form");
+
+    // form.addEventListener("submit", function (e) {
+    //   if (selected.size === 0) {
+    //     e.preventDefault(); // Stop form submission
+
+    //     // Optional: Show a temporary error message
+    //     alert("Please select at least one algorithm.");
+
+    //     // Optional: Add a red border or shake animation to buttons to signal error
+    //     document
+    //       .getElementById("algo-buttons")
+    //       .classList.add("border", "border-danger", "rounded", "p-2");
+
+    //     return false;
+    //   }
+    // });
+  </script>
+</body>

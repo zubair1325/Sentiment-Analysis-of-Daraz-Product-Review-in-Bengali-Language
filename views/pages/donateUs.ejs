@@ -1,0 +1,78 @@
+<%- layout("layouts/boilerplate.ejs") %>
+<body class="bg-light">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+          <div
+            class="card-header bg-warning text-dark text-center"
+            style="
+              background-color: #ff385de0 !important ;
+              color: white !important;
+            "
+          >
+            <h4 class="mb-0">Support Our Project</h4>
+          </div>
+          <div class="card-body">
+            <p class="text-center">
+              If you like our project and want to support us, consider making a
+              small donation. Every contribution helps us grow and improve!
+            </p>
+            <form
+              action="/donate"
+              method="POST"
+              class="needs-validation"
+              novalidate
+            >
+              <div class="mb-3">
+                <label for="amount" class="form-label"
+                  >Donation Amount (BDT)</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="amount"
+                  name="amount"
+                  min="1"
+                  placeholder="eg... 1000000000"
+                  required
+                />
+                <div class="invalid-feedback">Enter Amount</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="paymentMethod" class="form-label"
+                  >Payment Method</label
+                >
+                <select
+                  class="form-select"
+                  id="paymentMethod"
+                  name="method"
+                  required
+                >
+                  <option value="" disabled selected>
+                    Select payment method
+                  </option>
+                  <option value="bkash">bKash</option>
+                  <option value="nagad">Nagad</option>
+                  <option value="rocket">Rocket</option>
+                  <option value="paypal">PayPal</option>
+                  <option value="card">Credit/Debit Card</option>
+                </select>
+                <div class="invalid-feedback">Select a payment method</div>
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-success w-100 donate-us-btn"
+                style="background-color: #ff385dc5; border: none"
+              >
+                Donate Now
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

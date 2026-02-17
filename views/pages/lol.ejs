@@ -1,0 +1,112 @@
+<%- layout("layouts/boilerplate.ejs") %>
+<body class="bg-light">
+  <div class="container py-5">
+    <h1 class="mb-4 text-center">Machine Learning Model Metrics</h1>
+
+    <div class="card shadow">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th>Model</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1 Score</th>
+                <th>Class Counts</th>
+              </tr>
+            </thead>
+            <tbody id="metrics-table-body">
+              <tr>
+                <td colspan="5" class="text-center text-muted">
+                  Loading metrics...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (async () => {
+      const tbody = document.getElementById("metrics-table-body");
+
+      try {
+        const res = await fetch("/metrics", {
+          headers: { Accept: "application/json" },
+        });
+        if (!res.ok) {
+          const text = await res.text();
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="5" class="text-danger">
+                HTTP ${res.status} – ${res.statusText}<br>
+                <small>${text.slice(0, 300)}</small>
+              </td>
+            </tr>`;
+          return;
+        }
+
+        const data = await res.json();
+        tbody.innerHTML = "";
+
+        if (data.status !== "success") {
+          tbody.innerHTML = `<tr><td colspan="5" class="text-danger">Error: ${
+            data.error || "Unknown error"
+          }</td></tr>`;
+          return;
+        }
+
+        const metrics = data.metrics || {};
+        const models = Object.keys(metrics);
+
+        if (models.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" class="text-muted">No metrics available. Run /home first.</td></tr>`;
+          return;
+        }
+
+        for (const model of models) {
+          const stats = metrics[model] || {};
+          const precision =
+            typeof stats.precision === "number"
+              ? stats.precision.toFixed(2)
+              : "-";
+          const recall =
+            typeof stats.recall === "number" ? stats.recall.toFixed(2) : "-";
+          const f1 =
+            typeof stats.f1_score === "number"
+              ? stats.f1_score.toFixed(2)
+              : "-";
+          const counts = stats.counts
+            ? Object.entries(stats.counts)
+                .map(
+                  ([k, v]) =>
+                    `<span class="badge bg-secondary me-1">${k}: ${v}</span>`
+                )
+                .join(" ")
+            : "-";
+
+          tbody.insertAdjacentHTML(
+            "beforeend",
+            `
+            <tr>
+              <td>${model}</td>
+              <td>${precision}</td>
+              <td>${recall}</td>
+              <td>${f1}</td>
+              <td>${counts}</td>
+            </tr>
+          `
+          );
+        }
+      } catch (err) {
+        console.error(err);
+        tbody.innerHTML = `<tr><td colspan="5" class="text-danger">Failed to load metrics: ${
+          err?.message || err
+        }</td></tr>`;
+      }
+    })();
+  </script>
+</body>

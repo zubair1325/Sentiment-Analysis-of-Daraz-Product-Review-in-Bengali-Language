@@ -1,0 +1,75 @@
+<%- layout("layouts/boilerplate.ejs") %>
+
+<head>
+  <style>
+    body {
+      background-color: white;
+      padding: 2rem;
+    }
+    .chart-box {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      width: 100%;
+      max-width: 350px;
+      margin: auto;
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="mb-4 text-center">Sentiment Distribution of Each Model</h2>
+    <div class="row g-4">
+      <% Object.keys(chartData).forEach((model, idx) => { %>
+      <div class="col-md-6 col-lg-4">
+        <div class="chart-box">
+          <h5 class="text-center mb-3"><%= model %></h5>
+          <canvas id="chart<%= idx %>"></canvas>
+          <ul class="list-group list-group-flush mt-3">
+            <% for (let label in chartData[model]) { %>
+            <li class="list-group-item d-flex justify-content-between">
+              <strong><%= label %></strong>
+              <span><%= chartData[model][label] %>%</span>
+            </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+
+
+
+  <script>
+    const chartData = <%- JSON.stringify(chartData) %>;
+
+    Object.entries(chartData).forEach(([model, data], index) => {
+      const ctx = document.getElementById(`chart${index}`).getContext("2d");
+      new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: Object.keys(data),
+          datasets: [
+            {
+              label: model,
+              data: Object.values(data),
+              backgroundColor: ["#36a2eb", "#ffce56", "#ff6384"],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: "bottom" },
+          },
+        },
+      });
+    });
+  </script>
+</body>

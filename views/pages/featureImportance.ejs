@@ -1,0 +1,54 @@
+<%- layout("/layouts/boilerplate.ejs") %>
+
+<div class="container mt-4">
+  <h2>Feature Importance</h2>
+
+  <% if (Object.keys(featureImportance).length === 0) { %>
+  <p>No feature importance data found.</p>
+  <% } else { %> <% Object.keys(featureImportance).forEach(function(model) { %>
+  <div class="card mt-3">
+    <div class="card-body">
+      <h4><%= model %></h4>
+
+      <% if (Array.isArray(featureImportance[model])) { %>
+      <table class="table table-bordered table-sm">
+        <thead>
+          <tr>
+            <th>Word</th>
+            <th>Importance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% featureImportance[model].forEach(function(row) { %>
+          <tr>
+            <td><%= row[0] %></td>
+            <td><%= row[1] %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <!-- multi-class (like Logistic or NaiveBayes) -->
+      <% Object.keys(featureImportance[model]).forEach(function(cls) { %>
+      <h5><%= cls %></h5>
+      <table class="table table-bordered table-sm">
+        <thead>
+          <tr>
+            <th>Word</th>
+            <th>Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% featureImportance[model][cls].forEach(function(row) { %>
+          <tr>
+            <td><%= row[0] %></td>
+            <td><%= row[1] %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <% }); %> <% } %>
+    </div>
+  </div>
+  <% }); %> <% } %>
+</div>

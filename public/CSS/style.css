@@ -1,0 +1,64 @@
+body {
+  padding: 1rem 2vw 0 2vw;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  background-color: white !important;
+}
+.navbar {
+  background-color: white !important;
+}
+.navbar img {
+  height: 4rem;
+  width: 4rem;
+  object-fit: cover;
+  object-position: center;
+}
+.navbar .a-style {
+  font-weight: 400;
+}
+.navbar .a-style a:hover {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.navbar .btn-outline-danger {
+  background-color: #ff385c !important;
+  color: white;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  font-size: 1rem;
+  height: 2.5rem;
+  width: 5rem;
+  border-radius: 0.6rem;
+}
+.navbar .btn-outline-danger:hover {
+  background-color: #ff385dd2 !important;
+  color: white;
+  flex-grow: 1;
+}
+.feed-back-btn:hover,
+.donate-us-btn:hover,
+.landing-btn:hover,
+.landing-btn:hover,
+.processed-btn:hover {
+  background-color: #ff385d !important;
+}
+
+.landing-image img {
+  height: 10rem;
+  width: 13rem;
+  object-fit: contain;
+  object-position: center;
+}
+
+.algo-btn {
+  background-color: white;
+  border: 1px solid #ff385dde;
+  color: #ff385d;
+}
+
+.landing-algo-selection,
+.algo-btn:hover {
+  background-color: #ff385db7;
+  color: white;
+  border: 1px solid #ff385dde;
+}

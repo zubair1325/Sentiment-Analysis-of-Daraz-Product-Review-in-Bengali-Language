@@ -1,0 +1,37 @@
+<%- layout("layouts/boilerplate.ejs") %>
+<div class="container mt-5 text-center">
+  <h2 class="mb-4">Processing Complete</h2>
+  <a
+    href="/download"
+    class="btn btn-success me-2 processed-btn"
+    style="background-color: #ff385db0; border: none; color: white"
+    >Download Excel</a
+  >
+
+  <% if (summaryAvailable) { %>
+  <a
+    href="/output"
+    class="btn btn-primary processed-btn"
+    style="background-color: #ff385da9; border: none; color: white"
+    >View Output Analysis</a
+  >
+  <a
+    href="/feature-importance"
+    class="btn btn-success me-2 processed-btn"
+    style="background-color: #ff385db0; border: none; color: white"
+    >Feature Importance</a
+  >
+  <a
+    href="/chi2-features"
+    class="btn btn-success me-2 processed-btn"
+    style="background-color: #ff385db0; border: none; color: white"
+    >Chi-Squared</a
+  >
+  <a
+    href="/metrics-view"
+    class="btn btn-success me-2 processed-btn"
+    style="background-color: #ff385db0; border: none; color: white"
+    >Metrics View</a
+  >
+  <% } %>
+</div>

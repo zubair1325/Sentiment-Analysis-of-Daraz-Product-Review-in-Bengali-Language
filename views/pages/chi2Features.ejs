@@ -1,0 +1,29 @@
+<%- layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h1>Chi-Squared Feature Importance</h1>
+
+  <% if (Object.keys(chi2Features).length === 0) { %>
+    <p>No Chi-Squared feature data available.</p>
+  <% } else { %>
+    <% for (const modelName in chi2Features) { %>
+      <h2><%= modelName %> - Top 20 Features</h2>
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Chi-Squared Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% chi2Features[modelName].forEach(([feature, score]) => { %>
+            <tr>
+              <td><%= feature %></td>
+              <td><%= score %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+  <% } %>
+</body>
+
